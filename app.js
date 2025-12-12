@@ -1,52 +1,31 @@
-const analyzeBtn = document.getElementById("analyzeBtn");
-const loader = document.getElementById("loader");
-const results = document.getElementById("results");
-const output = document.getElementById("analysisOutput");
-const gaugeFill = document.getElementById("gaugeFill");
-const percentageLabel = document.getElementById("percentageLabel");
+document.getElementById("analyzeBtn").addEventListener("click", async () => {
+    const text = document.getElementById("inputText").value;
 
-analyzeBtn.addEventListener("click", async () => {
-    const text = document.getElementById("textInput").value.trim();
-    if (!text) return alert("Colle un texte avant d'analyser !");
+    const response = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text })
+    });
 
-    loader.classList.remove("hidden");
-    results.classList.add("hidden");
+    const data = await response.json();
 
-    try {
-        const response = await fetch("/api/analyze", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text })
-        });
+    document.getElementById("results").classList.remove("hidden");
 
-        const data = await response.json();
+    document.getElementById("neutralityScore").textContent = data.neutrality;
 
-        if (data.error) {
-            alert("Erreur : " + data.error);
-            loader.classList.add("hidden");
-            return;
-        }
-
-        output.textContent = data.commentaire;
-        updateGauge(data.score);
-
-        loader.classList.add("hidden");
-        results.classList.remove("hidden");
-
-    } catch (error) {
-        console.error(error);
-        alert("Erreur dans l'analyse.");
-        loader.classList.add("hidden");
-    }
+    fillList("biasList", data.biases);
+    fillList("connotationList", data.connotations);
+    fillList("sourceList", data.sources);
+    fillList("frameList", data.frames);
 });
 
-function updateGauge(score) {
-    const s = Math.min(Math.max(score, 0), 100);
-    gaugeFill.style.width = s + "%";
-
-    const r = Math.floor((s / 100) * 255);
-    const g = Math.floor(255 - (s / 100) * 255);
-    gaugeFill.style.backgroundColor = `rgb(${r}, ${g}, 0)`;
-
-    percentageLabel.textContent = s + "% de tonalité connotée";
+function fillList(id, items) {
+    const ul = document.getElementById(id);
+    ul.innerHTML = "";
+    items.forEach(i => {
+        const li = document.createElement("li");
+        li.textContent = i;
+        ul.appendChild(li);
+    });
 }
+
