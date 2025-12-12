@@ -1,30 +1,61 @@
-document.getElementById("analyzeBtn").addEventListener("click", async () => {
-    const text = document.getElementById("inputText").value;
+const analyzeBtn = document.getElementById("analyzeBtn");
+const loader = document.getElementById("loader");
+const results = document.getElementById("results");
+const output = document.getElementById("analysisOutput");
 
-    const response = await fetch("/api/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text })
-    });
+const gaugeFill = document.getElementById("gaugeFill");
+const percentageLabel = document.getElementById("percentageLabel");
 
-    const data = await response.json();
+analyzeBtn.addEventListener("click", async () => {
+    const text = document.getElementById("textInput").value.trim();
+    if (!text) return alert("Entre un texte à analyser.");
 
-    document.getElementById("results").classList.remove("hidden");
+    // UI — show loader
+    loader.classList.remove("hidden");
+    results.classList.add("hidden");
 
-    document.getElementById("neutralityScore").textContent = data.neutrality;
+    try {
+        const response = await fetch("/api/analyze", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text })
+        });
 
-    fillList("biasList", data.biases);
-    fillList("connotationList", data.connotations);
-    fillList("sourceList", data.sources);
-    fillList("frameList", data.frames);
+        const data = await response.json();
+
+        if (data.error) {
+            alert("Erreur : " + data.error);
+            loader.classList.add("hidden");
+            return;
+        }
+
+        // Texte résultat
+        output.textContent = data.commentaire;
+
+        // Jauge
+        updateGauge(data.score);
+
+        // UI
+        loader.classList.add("hidden");
+        results.classList.remove("hidden");
+
+    } catch (err) {
+        console.error(err);
+        alert("Erreur lors de l'analyse.");
+        loader.classList.add("hidden");
+    }
 });
 
-function fillList(id, items) {
-    const ul = document.getElementById(id);
-    ul.innerHTML = "";
-    items.forEach(i => {
-        const li = document.createElement("li");
-        li.textContent = i;
-        ul.appendChild(li);
-    });
+
+function updateGauge(score) {
+    const safeScore = Math.min(Math.max(score, 0), 100);
+
+    gaugeFill.style.width = safeScore + "%";
+
+    // Dégradé vert → rouge
+    const r = Math.floor((safeScore / 100) * 255);
+    const g = Math.floor(255 - (safeScore / 100) * 255);
+    gaugeFill.style.backgroundColor = `rgb(${r}, ${g}, 0)`;
+
+    percentageLabel.textContent = safeScore + "% de tonalité connotée";
 }
