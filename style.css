@@ -1,74 +1,76 @@
+/* ------- GLOBAL ------- */
 body {
-    font-family: Arial, sans-serif;
-    background: #eef3ff;
     margin: 0;
     padding: 0;
-    color: #1a2a44;
+    background: #0d1b2a;
+    font-family: "Inter", sans-serif;
+    color: #e0e5eb;
     text-align: center;
 }
 
-/* HEADER */
+/* ------- HEADER ------- */
 header {
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-    color: white;
-    padding: 30px 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    padding: 30px;
 }
 
-.logo {
+#logo {
     width: 90px;
     margin-bottom: 10px;
 }
 
-/* TEXTAREA + BUTTON */
+h1 {
+    font-size: 2.4rem;
+    margin: 5px 0;
+    color: #dbeafe;
+}
+
+header p {
+    color: #7da0c0;
+}
+
+/* ------- MAIN ------- */
 main {
-    padding: 30px;
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
 }
 
 textarea {
-    width: 90%;
-    height: 180px;
+    width: 100%;
+    height: 160px;
     padding: 15px;
-    font-size: 16px;
-    border: 2px solid #3b82f6;
     border-radius: 12px;
-    outline: none;
-    resize: none;
-    background: white;
-    transition: 0.2s;
-}
-
-textarea:focus {
-    border-color: #1e40af;
-    box-shadow: 0 0 6px rgba(59,130,246,0.4);
+    border: none;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    background: #1b263b;
+    color: white;
 }
 
 button {
-    margin-top: 15px;
-    padding: 12px 28px;
-    font-size: 17px;
-    background: #1e40af;
+    background: #3b82f6;
     color: white;
+    padding: 14px 22px;
     border: none;
     border-radius: 12px;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #3b82f6;
+    background: #2563eb;
 }
 
-/* LOADER */
+/* ------- LOADER ------- */
 #loader {
     margin: 25px auto;
-    border: 6px solid #dbeafe;
-    border-top: 6px solid #1e3a8a;
+    width: 45px;
+    height: 45px;
+    border: 5px solid #1e3a8a;
+    border-top: 5px solid #60a5fa;
     border-radius: 50%;
-    width: 55px;
-    height: 55px;
-    animation: spin 1s linear infinite;
+    animation: spin 0.9s linear infinite;
 }
 
 .hidden {
@@ -76,41 +78,50 @@ button:hover {
 }
 
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
-/* RESULT + GAUGE */
+/* ------- RESULTS ------- */
 #results {
-    margin-top: 30px;
-    padding: 20px;
-    background: white;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    background: #1b263b;
+    padding: 25px;
+    margin-top: 25px;
+    border-radius: 12px;
+    text-align: left;
 }
 
-.gauge-container {
+/* ------- GAUGE ------- */
+#gaugeContainer {
     width: 100%;
     height: 25px;
-    background: #e5e7eb;
-    border-radius: 15px;
+    background: #2c3e57;
+    border-radius: 12px;
     overflow: hidden;
-    margin-top: 20px;
+    margin-bottom: 8px;
+    border: 1px solid #334766;
 }
 
-.gauge-fill {
+#gaugeFill {
     height: 100%;
     width: 0%;
-    transition: width 1.2s ease-in-out, background 1.2s;
-    border-radius: 15px;
+    background: green;
+    transition: width 0.7s ease, background-color 0.5s ease;
 }
 
 #percentageLabel {
-    margin-top: 10px;
-    font-size: 18px;
+    text-align: right;
     font-weight: bold;
+    color: #9bb4cc;
+    margin-top: 2px;
+}
+
+/* ------- TEXT OUTPUT ------- */
+pre {
+    white-space: pre-wrap;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #dce2e9;
 }
 
