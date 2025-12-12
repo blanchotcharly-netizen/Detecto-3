@@ -1,61 +1,39 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DETECTO – Analyse des biais journalistiques</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detecto</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
     <header>
-        <img src="logo.png" alt="Logo DETECTO" class="logo">
-
-        <h1>DETECTO</h1>
-        <p>L’IA qui analyse les biais journalistiques, les frames et les sources.</p>
+        <img src="logo.png" alt="Logo Detecto" class="logo">
+        <h1>Detecto — Détecteur de biais journalistique</h1>
     </header>
 
     <main>
-        <textarea id="inputText" placeholder="Colle ici ton article journalistique..."></textarea>
+        <textarea id="textInput" placeholder="Colle ici ton article ou texte journalistique..."></textarea>
+        <button id="analyzeBtn">Analyser</button>
 
-        <button id="analyzeBtn">Analyser avec DETECTO</button>
+        <!-- Animation de chargement -->
+        <div id="loader" class="hidden"></div>
 
-        <section id="results" class="hidden">
-            <h2>Résultats de l’analyse DETECTO</h2>
+        <!-- Résultats -->
+        <div id="results" class="hidden">
+            <h2>Résultats :</h2>
+            <p id="analysisOutput"></p>
 
-            <div class="result-block">
-                <h3>🟦 Jauge de tonalité</h3>
-
-                <div id="gaugeContainer">
-                    <div id="gaugeBar"></div>
-                </div>
-
-                <p id="neutralityScore"></p>
+            <!-- Jauge -->
+            <div class="gauge-container">
+                <div id="gaugeFill" class="gauge-fill"></div>
             </div>
-
-            <div class="result-block">
-                <h3>📌 Biais repérés</h3>
-                <ul id="biasList"></ul>
-            </div>
-
-            <div class="result-block">
-                <h3>💬 Mots et tournures connotés</h3>
-                <ul id="connotationList"></ul>
-            </div>
-
-            <div class="result-block">
-                <h3>🗣️ Analyse des sources mentionnées</h3>
-                <ul id="sourceList"></ul>
-            </div>
-
-            <div class="result-block">
-                <h3>🧩 Frames identifiées</h3>
-                <ul id="frameList"></ul>
-            </div>
-        </section>
+            <p id="percentageLabel"></p>
+        </div>
     </main>
 
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
+
