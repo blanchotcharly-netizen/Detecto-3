@@ -1,127 +1,184 @@
-/* ------- GLOBAL ------- */
-body {
+/* ----------------------------- */
+/*        GLOBAL RESET           */
+/* ----------------------------- */
+
+* {
     margin: 0;
     padding: 0;
-    background: #0d1b2a;
+    box-sizing: border-box;
     font-family: "Inter", sans-serif;
-    color: #e0e5eb;
-    text-align: center;
 }
 
-/* ------- HEADER ------- */
+body {
+    background: radial-gradient(circle at top, #0b1e3a, #071226 60%, #050c18);
+    color: #eaf2ff;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* ----------------------------- */
+/*            HEADER             */
+/* ----------------------------- */
+
 header {
-    padding: 30px;
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-#logo {
-    width: 90px;
-    margin-bottom: 10px;
+.logo {
+    width: 120px;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 10px rgba(0, 150, 255, 0.5));
 }
 
-h1 {
-    font-size: 2.4rem;
-    margin: 5px 0;
-    color: #dbeafe;
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #4da3ff, #81c4ff, #b2dcff);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 25px rgba(77, 163, 255, 0.4);
+    margin-bottom: 8px;
 }
 
 header p {
-    color: #7da0c0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 25px;
 }
 
-/* ------- MAIN ------- */
+
+}
+
+/* ----------------------------- */
+/*           MAIN AREA           */
+/* ----------------------------- */
+
 main {
     width: 90%;
-    max-width: 800px;
-    margin: auto;
+    max-width: 850px;
+    margin: 0 auto;
 }
 
 textarea {
     width: 100%;
-    height: 160px;
-    padding: 15px;
+    height: 200px;
+    padding: 18px;
     border-radius: 12px;
-    border: none;
-    margin-bottom: 15px;
+    background: rgba(12, 24, 50, 0.65);
+    border: 1px solid rgba(80, 140, 255, 0.35);
+    color: #eaf2ff;
     font-size: 1rem;
-    background: #1b263b;
-    color: white;
+    resize: vertical;
+    backdrop-filter: blur(8px);
+    margin-bottom: 20px;
+    transition: 0.25s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #62b3ff;
+    box-shadow: 0 0 18px rgba(100, 165, 255, 0.3);
 }
 
 button {
-    background: #3b82f6;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #1c6bff, #3fa7ff);
     color: white;
-    padding: 14px 22px;
+    font-size: 1.2rem;
     border: none;
     border-radius: 12px;
-    font-size: 1.1rem;
     cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(0, 140, 255, 0.3);
     transition: 0.3s;
 }
 
 button:hover {
-    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 150, 255, 0.45);
 }
 
-/* ------- LOADER ------- */
-#loader {
-    margin: 25px auto;
-    width: 45px;
-    height: 45px;
-    border: 5px solid #1e3a8a;
-    border-top: 5px solid #60a5fa;
-    border-radius: 50%;
-    animation: spin 0.9s linear infinite;
+button:active {
+    transform: scale(0.96);
 }
 
-.hidden {
+/* ----------------------------- */
+/*          RESULTS AREA         */
+/* ----------------------------- */
+
+#results {
+    margin-top: 35px;
+    padding: 25px;
+    background: rgba(10, 22, 45, 0.7);
+    border-radius: 18px;
+    border: 1px solid rgba(80, 140, 255, 0.25);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0, 120, 255, 0.25);
+    animation: fadeIn 0.5s ease-out;
+}
+
+#results.hidden {
     display: none;
 }
 
-@keyframes spin {
-    100% {
-        transform: rotate(360deg);
+#results h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #76baff, #a3d1ff);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* Each results block */
+
+.result-block {
+    margin-bottom: 25px;
+    border-left: 4px solid #3fa7ff;
+    padding-left: 15px;
+}
+
+.result-block h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: #a7cdff;
+}
+
+ul {
+    list-style: none;
+    padding-left: 5px;
+}
+
+ul li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.95rem;
+}
+
+/* ----------------------------- */
+/*          ANIMATIONS           */
+/* ----------------------------- */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------- */
+/*        RESPONSIVE DESIGN      */
+/* ----------------------------- */
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2.3rem;
+    }
+    .header-img {
+        width: 90%;
+    }
+    textarea {
+        height: 160px;
     }
 }
-
-/* ------- RESULTS ------- */
-#results {
-    background: #1b263b;
-    padding: 25px;
-    margin-top: 25px;
-    border-radius: 12px;
-    text-align: left;
-}
-
-/* ------- GAUGE ------- */
-#gaugeContainer {
-    width: 100%;
-    height: 25px;
-    background: #2c3e57;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 8px;
-    border: 1px solid #334766;
-}
-
-#gaugeFill {
-    height: 100%;
-    width: 0%;
-    background: green;
-    transition: width 0.7s ease, background-color 0.5s ease;
-}
-
-#percentageLabel {
-    text-align: right;
-    font-weight: bold;
-    color: #9bb4cc;
-    margin-top: 2px;
-}
-
-/* ------- TEXT OUTPUT ------- */
-pre {
-    white-space: pre-wrap;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #dce2e9;
-}
-
